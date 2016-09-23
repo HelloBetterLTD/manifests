@@ -1,5 +1,5 @@
 {
-    "name": "silverstripers/silverstripe-news",
+    "name": "silverstripers/silverstripe-manifests",
     "description": "Download manifests in excel sheets",
     "type": "silverstripe-module",
     "keywords": ["silverstripe", "reports", "manifests"],
