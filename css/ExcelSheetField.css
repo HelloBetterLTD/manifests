@@ -1,0 +1,41 @@
+.excelsheet {
+
+}
+
+.excelsheet.field label.left {
+    float: none;
+    display: block;
+}
+
+.excelsheet.field .middleColumn {
+    margin-left: 0;
+}
+
+.excelsheet.field .middleColumn table {
+
+    background: #fff;
+    border: 1px solid #000;
+    width: 100%;
+    margin-bottom: 20px;
+    table-layout: fixed;
+
+    /*background: #fff;
+    border: 1px solid #000;
+    width: 100%;
+    margin-bottom: 20px;
+    table-layout: fixed;
+    */
+}
+
+.excelsheet.field .middleColumn table td, .excelsheet.field .middleColumn table th {
+
+    padding: 5px;
+    vertical-align: middle;
+
+    /*border: 1px dotted #000;
+    padding: 5px;*/
+}
+
+.excelsheet.field .middleColumn table td img, .excelsheet.field .middleColumn table th img {
+    position: relative !important;
+}
