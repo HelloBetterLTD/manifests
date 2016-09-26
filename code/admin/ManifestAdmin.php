@@ -23,6 +23,9 @@ class ManifestAdmin extends LeftAndMain implements PermissionProvider
 		'$ManifestClass/$Action' => 'handleAction'
 	);
 
+
+	private static $menu_icon = 'silverstripe-manifests/images/ManifestAdmin.png';
+
 	protected $manifestClass;
 
 	protected $manifestObject;
@@ -68,8 +71,10 @@ class ManifestAdmin extends LeftAndMain implements PermissionProvider
 
 	public function getEditForm($id = null, $fields = null) {
 		$manifest = $this->manifestObject;
+		$validator = null;
 		if($manifest) {
 			$fields = $manifest->getCMSFields();
+			$validator = $manifest->getCMSValidator();
 		} else {
 			// List all reports
 			$fields = new FieldList();
@@ -94,6 +99,11 @@ class ManifestAdmin extends LeftAndMain implements PermissionProvider
 
 		$actions = new FieldList();
 		$form = new Form($this, "EditForm", $fields, $actions);
+
+		if($validator) {
+			$form->setValidator($validator);
+		}
+
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 		$form->loadDataFrom($this->request->getVars());
 
