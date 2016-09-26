@@ -8,7 +8,7 @@
     </div>
 
     <p>
-        <a href="{$DownloadLink()}">Download Excel Sheet</a>
+        <a href="{$DownloadLink()}" class="ss-ui-button">Download Excel Sheet</a>
     </p>
 
 

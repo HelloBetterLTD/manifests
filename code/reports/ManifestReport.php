@@ -94,6 +94,14 @@ abstract class ManifestReport extends ViewableData
 		return $fields;
 	}
 
+	public function getCMSValidator()
+	{
+		$validator = new RequiredFields();
+		$this->extend('updateCMSValidator', $validator);
+		return $validator;
+	}
+
+
 	public function getLink($action = null) {
 		return Controller::join_links(
 			'admin/manifests/',
@@ -183,7 +191,7 @@ abstract class ManifestReport extends ViewableData
 	}
 
 
-	public function displayArrayList(SS_List $list, $offset, PHPExcel_Worksheet $sheet)
+	public function displayArrayList(SS_List $list, $offset, PHPExcel_Worksheet $sheet, $titles = true)
 	{
 		$coordinates = PHPExcel_Cell::coordinateFromString($offset);
 
@@ -199,7 +207,7 @@ abstract class ManifestReport extends ViewableData
 
 
 
-			if($rowCounter == 0) {
+			if($rowCounter == 0 && $titles) {
 				foreach($map as $name => $value) {
 					$currentCol = $col + $colCounter;
 					$sheet->setCellValueByColumnAndRow($currentCol, $currentRow, $name);
@@ -222,6 +230,21 @@ abstract class ManifestReport extends ViewableData
 		}
 
 
+	}
+
+
+	public function boldFont(PHPExcel_Worksheet $sheet, $col, $row)
+	{
+		$styles = array(
+			'font'	=> array(
+				'bold'			=> true,
+				'color'			=> array('rgb'	=> '000000')
+			)
+		);
+
+		$columnLetter = PHPExcel_Cell::stringFromColumnIndex($col);
+		$coordinate = $columnLetter . $row;
+		$sheet->getStyle($coordinate)->applyFromArray($styles);
 	}
 
 }
