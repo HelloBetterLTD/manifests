@@ -157,7 +157,7 @@ abstract class ManifestReport extends ViewableData
 	 * @return PHPExcel_Worksheet
 	 * @throws PHPExcel_Exception
 	 */
-	public function getExcelSheet($sheetName)
+	public function getExcelSheet($sheetName, $header = true)
 	{
 		$excel = $this->getDocument();
 		$sheet = $excel->getSheetByCodeName($this->getSheetCode($sheetName));
@@ -177,8 +177,9 @@ abstract class ManifestReport extends ViewableData
 				$excel->addSheet($sheet);
 			}
 
-			$this->setSheetHeader($sheet);
-
+			if($header) {
+				$this->setSheetHeader($sheet);
+			}
 
 		}
 
@@ -245,6 +246,34 @@ abstract class ManifestReport extends ViewableData
 		$columnLetter = PHPExcel_Cell::stringFromColumnIndex($col);
 		$coordinate = $columnLetter . $row;
 		$sheet->getStyle($coordinate)->applyFromArray($styles);
+	}
+
+	public function fontSize(PHPExcel_Worksheet $sheet, $col, $row, $size)
+	{
+		$styles = array(
+			'font'	=> array(
+				'size'	=> $size
+			)
+		);
+
+		$columnLetter = PHPExcel_Cell::stringFromColumnIndex($col);
+		$coordinate = $columnLetter . $row;
+		$sheet->getStyle($coordinate)->applyFromArray($styles);
+	}
+
+	public function setBackground(PHPExcel_Worksheet $sheet, $col, $row, $fill)
+	{
+
+		$columnLetter = PHPExcel_Cell::stringFromColumnIndex($col);
+		$coordinate = $columnLetter . $row;
+		$sheet->getStyle($coordinate)->applyFromArray(
+			array(
+				'fill' => array(
+					'type' => PHPExcel_Style_Fill::FILL_SOLID,
+					'color' => array('rgb' => $fill)
+				)
+			)
+		);
 	}
 
 }
